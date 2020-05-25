@@ -124,7 +124,6 @@ input {
   transition: border 0.3s ease-out;
 }
 
-
 .remove.icon {
   color: red;
   display: inline-flex;
@@ -133,20 +132,43 @@ input {
   margin-top: 25px;
 }
 .remove.icon:before {
-  content: '';
+  content: "";
   position: absolute;
   width: 15px;
   height: 1px;
   background-color: currentColor;
   -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 .remove.icon:after {
-  content: '';
+  content: "";
   position: absolute;
   width: 15px;
   height: 1px;
   background-color: currentColor;
   -webkit-transform: rotate(-45deg);
-          transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.empty-list-container {
+}
+.empty-img {
+  width: 100%;
+  height: auto;
+  margin-top: 25px;
+}
+.empty-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #999;
+  margin: 0px 0px;
+}
+
+.empty-message {
+  text-align: center;
+  font-size: 1rem;
+  color: #999;
+  margin: 0px 0px;
+  margin-bottom: 25px;
 }
