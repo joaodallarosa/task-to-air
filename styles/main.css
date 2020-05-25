@@ -24,6 +24,10 @@
   outline: 0;
 }
 
+#btn-openair {
+  display: none;
+}
+
 .button--save {
   /* position: fixed; */
   /* right: 0; */
