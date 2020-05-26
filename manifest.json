@@ -6,8 +6,12 @@
     "48": "icon.png"
   },
   "permissions": [
-    "tabs", "<all_urls>"
+    "tabs", "<all_urls>", "storage"
   ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html"
