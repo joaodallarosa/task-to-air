@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <link rel="stylesheet" type="text/css" href="main.css" />
+  <link rel="stylesheet" type="text/css" href="styles/main.css" />
 </head>
 
 <body style="width: 300px">
@@ -12,12 +12,10 @@
 
   <div id="wrap-tasks"></div>
 
-  <!-- <div class="task-item">
-    <span class="task-item-label">
-      BRWM-192 Task Name
-    </span>
-    <input class="task-item-time" type="number" placeholder="Hours" />
-    <div class="remove icon"></div>
+  <div>
+    <img class="empty-img" alt="Cute empty browser illustration" src="empty.png">
+    <p class="empty-title">Nothing!</p>
+    <p class="empty-message">There are no saved tasks...</p>
   </div>
 
   <div class="task-item">
@@ -34,11 +32,19 @@
     </span>
     <input class="task-item-time" type="number" placeholder="Hours" />
     <div class="remove icon"></div>
-  </div> -->
+  </div>
 
-  <button class="button button--save" id="clickme2">Fill Open Air!</button>
+  <div class="task-item">
+    <span class="task-item-label">
+      BRWM-192 Task Name
+    </span>
+    <input class="task-item-time" type="number" placeholder="Hours" />
+    <div class="remove icon"></div>
+  </div>
 
-  <script type="module" src="popup.js"></script>
+  <button class="button button--save" id="btn-openair">Fill Open Air!</button>
+
+  <script type="module" src="/scripts/popup.js"></script>
 </body>
 
 </html>
