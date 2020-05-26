@@ -38,7 +38,7 @@ import storage from './storage.js';
     }, () => {
       chrome.tabs.executeScript(null,
         {
-          file: 'fill-open-air.js'
+          file: 'fill-open-air.js',
         }, async (data) => {
           // to do...
 
@@ -49,7 +49,7 @@ import storage from './storage.js';
 
           if (!removedTasks) return;
           
-          window.alert(JSON.stringify(result.filledTasks));
+          // window.alert(JSON.stringify(result.filledTasks));
         });
     });
   }
@@ -64,7 +64,7 @@ import storage from './storage.js';
 
     var items = await storage.getTaskByDate(storage.getDate());
     
-    window.alert(JSON.stringify(items));
+    // window.alert(JSON.stringify(items));
 
     actionToAdd.addEventListener('click', onClickToAddTask);
     actionFill.addEventListener('click', onClickToFillTasks);

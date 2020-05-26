@@ -11,7 +11,7 @@
       date: new Date().toJSON().slice(0,10),
       key: key.innerText,
       value: value.innerText,
-      duration: 0,
+      duration: 2,
       filled: false
     }
   }

@@ -37,11 +37,11 @@ export default {
     return new Promise(async (resolve) => {
       const data = await this.getTaskByDate(task.date);
 
-      chrome.storage.sync.set({ 
+      chrome.storage.sync.set({
         dataSource: data.map((item) => {
           if (item.key !== task.key) return item;
           return Object.assign(item, task), item;
-        }) 
+        })
       }, () => {
         resolve(task);
       });
@@ -63,11 +63,37 @@ export default {
 
       const data = await this.getTaskByDate(task.date);
 
-      chrome.storage.sync.set({ 
-        dataSource: data.concat(task) 
+      chrome.storage.sync.set({
+        dataSource: data.concat(task)
       }, () => {
         resolve(task);
       });
+    });
+  },
+
+
+  // Add relationship.
+  addRelationship: async function (projectInfo, taskInfo, taskCode) {
+    return new Promise(async (resolve) => {
+      var relationships = {};
+      chrome.storage.local.get(['relationships'], function (result) {
+        relationships = result.value;
+      });
+
+      relationships[taskCode] = {
+        projectInfo: projectInfo,
+        taskInfo: taskInfo
+      }
+
+      chrome.storage.sync.set(
+        {
+          relationships: relationships
+        },
+        function () {
+          console.log('Relationship is set', relationships);
+          resolve(true);
+        }
+      );
     });
   },
 
