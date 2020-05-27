@@ -7,13 +7,14 @@
   testlist = [
     {
       "date": "2020-05-26",
-      "duration": 4.6,
-      "filled": false,
-      "key": "FCCB-21",
-      "value": "Task2Air"
-    }, {
-      "date": "2020-05-26",
       "duration": 3,
+      "filled": false,
+      "key": "CBMM-21",
+      "value": "Task2Air"
+    },
+    {
+      "date": "2020-05-26",
+      "duration": 4.6,
       "filled": false,
       "key": "FCCB-21",
       "value": "Task2Air"
@@ -21,7 +22,20 @@
       "date": "2020-05-26",
       "duration": 2,
       "filled": false,
-      "key": "FCCB-21",
+      "key": "BRWM-21",
+      "value": "Task2Air"
+    },
+    {
+      "date": "2020-05-26",
+      "duration": 3,
+      "filled": false,
+      "key": "CBMM-21",
+      "value": "Task2Air"
+    }, {
+      "date": "2020-05-26",
+      "duration": 3,
+      "filled": false,
+      "key": "CBMM-21",
       "value": "Task2Air"
     },]
 
@@ -32,7 +46,9 @@
     task.filled = true;
   });
 
-  setRelationships();
+  document.getElementById('oa3_button_hide_nav').addEventListener('click', setRelationships);
+  document.getElementById('timesheet_data_range').addEventListener('click', resetRelationships);
+
 
   return {
     ok: (ok = true), ok,
@@ -42,44 +58,106 @@
 
 function fillAvailableInput(hours, description) {
   var todayColumns = document.getElementsByClassName('timesheetFixedColumn' + (8 - (new Date().getDay())) + ' timesheetHours');
-  console.log('today columns', todayColumns);
-  for (let i = 0; i < todayColumns.length; i++) {
-    const element = todayColumns[i];
-    var input = element.children[0];
-    var descriptionBtn = element.children[1];
+  chrome.storage.sync.get(['relationships'], function (result) {
+    var relationships = result.relationships;
 
-    if (!input.value) {
-      element.style.border = '1px solid red';
+    for (let i = 0; i < todayColumns.length; i++) {
+      const element = todayColumns[i];
+      var input = element.children[0];
 
-      input.value = hours;
+      var inputId = input.id;
+      var inputRow = inputId.split('r')[1][0];
+      var taskSelect = document.getElementById('ts_c2_r' + inputRow);
+      var projectSelect = document.getElementById('ts_c1_r' + inputRow);
+      var taskCode = description.split('-')[0];
 
-      input.dispatchEvent(new Event('change', {
-        view: window,
-        bubbles: true,
-        cancelable: true
-      }));
+      if (input.value) {
+        continue;
+      }
 
-      descriptionBtn.dispatchEvent(new Event('click', {
-        view: window,
-        bubbles: true,
-        cancelable: true
-      }));
+      if (projectSelect.selectedIndex <= 0) {
 
-      var textarea = document.getElementById('tm_notes');
-      var okBtn = document.getElementsByClassName('btn-oa dialogOkButton')[0];
-      textarea.value = description;
+        if (relationships && relationships[taskCode]) {
+          projectSelect.value = relationships[taskCode].projectInfo;
+          projectSelect.dispatchEvent(new Event('change', {
+            view: window,
+            bubbles: true,
+            cancelable: true
+          }));
+          taskSelect.value = relationships[taskCode].taskInfo;
+          taskSelect.dispatchEvent(new Event('change', {
+            view: window,
+            bubbles: true,
+            cancelable: true
+          }));
+          fillInput(element, hours, description);
+          break;
+        } else {
+          fillInput(element, hours, description);
+          break;
+        }
 
-      okBtn.dispatchEvent(new Event('click', {
-        view: window,
-        bubbles: true,
-        cancelable: true
-      }));
+      } else {
+        if (relationships && relationships[taskCode]) {
+          if (projectSelect.options[projectSelect.selectedIndex].value == relationships[taskCode].projectInfo &&
+            taskSelect.options[taskSelect.selectedIndex].value == relationships[taskCode].taskInfo) {
+            fillInput(element, hours, description);
+            break;
+          } else {
+            continue;
+          }
 
-      break;
+        } else {
+          continue;
+        }
+      }
     }
+  });
 
-  }
 }
+
+function fillInput(element, hours, description) {
+  element.style.border = '1px solid red';
+  var input = element.children[0];
+  var descriptionBtn = element.children[1];
+
+  input.value = hours;
+
+  input.dispatchEvent(new Event('change', {
+    view: window,
+    bubbles: true,
+    cancelable: true
+  }));
+
+  descriptionBtn.dispatchEvent(new Event('click', {
+    view: window,
+    bubbles: true,
+    cancelable: true
+  }));
+
+  var textarea = document.getElementById('tm_notes');
+  var okBtn = document.getElementsByClassName('btn-oa dialogOkButton')[0];
+  textarea.value = description;
+
+  okBtn.dispatchEvent(new Event('click', {
+    view: window,
+    bubbles: true,
+    cancelable: true
+  }));
+
+}
+
+function resetRelationships() {
+  chrome.storage.sync.set(
+    {
+      relationships: {}
+    },
+    function () {
+      console.log('Relationship resetted');
+    }
+  );
+}
+
 
 async function setRelationships() {
   var todayColumns = document.getElementsByClassName('timesheetFixedColumn' + (8 - (new Date().getDay())) + ' timesheetHours');
@@ -116,8 +194,6 @@ async function setRelationships() {
         cancelable: true
       }));
 
-      // console.log('values', projectValue, taskValue);
-
       if (hasTaskCode) {
         await addRelationship(projectValue, taskValue, taskCode);
       }
@@ -133,7 +209,7 @@ async function addRelationship(projectInfo, taskInfo, taskCode) {
     var relationships = {};
     chrome.storage.sync.get(['relationships'], function (result) {
       console.log('got this', result);
-      relationships = result;
+      relationships = result.relationships;
       if (!relationships) {
         relationships = {};
       }
@@ -143,14 +219,12 @@ async function addRelationship(projectInfo, taskInfo, taskCode) {
         taskInfo: taskInfo
       }
 
-      // console.log(relationships);
-
       chrome.storage.sync.set(
         {
           relationships: relationships
         },
         function () {
-          console.log('Relationship is set', relationships);
+          console.log('Relationship is set');
           resolve();
         }
       );
