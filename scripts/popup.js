@@ -10,7 +10,7 @@ import storage from './storage.js';
     }
 
     if (tab.url.includes('jira')) {
-      document.getElementById('clickme').style.display = 'block';
+      document.getElementById('btn-add-task').style.display = 'block';
     }
   });
 
@@ -57,7 +57,7 @@ import storage from './storage.js';
               <span class="task-item-label">
                 ${item.key}: ${item.value}
               </span>
-              <input class="task-item-time" type="number" placeholder="Hours" value="${item.duration}" />
+              <input class="task-item-time" step="0.25" type="number" placeholder="Hours" value="${item.duration}" />
               <div class="remove icon"></div>
             </div>`;
   }
@@ -138,7 +138,7 @@ import storage from './storage.js';
   async function onInitializePopup() {
     console.log('DOM fully loaded');
 
-    const actionToAdd = document.getElementById('clickme');
+    const actionToAdd = document.getElementById('btn-add-task');
     const actionFill = document.getElementById('btn-openair');
 
     populateTaskList(await storage.getTaskByDate(storage.getDate()));
