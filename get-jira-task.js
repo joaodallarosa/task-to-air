@@ -1,5 +1,5 @@
 // TO DO
-(function(){
+(function () {
   let ok = false;
   let taskToFill = null;
 
@@ -8,7 +8,7 @@
 
   if (key && value) {
     taskToFill = {
-      date: new Date().toJSON().slice(0,10),
+      date: new Date().toJSON().slice(0, 10),
       key: key.innerText,
       value: value.innerText,
       duration: 0,
@@ -21,3 +21,4 @@
     taskToFill
   };
 })();
+

@@ -3,13 +3,20 @@
   "name": "Task to Air",
   "version": "0.1",
   "icons": {
-    "48": "icon.png"
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
   },
   "permissions": [
-    "tabs", "<all_urls>", "storage"
+    "tabs",
+    "<all_urls>",
+    "storage",
+    "contextMenus"
   ],
   "background": {
-    "scripts": ["background.js"],
+    "scripts": [
+      "background.js"
+    ],
     "persistent": false
   },
   "browser_action": {
