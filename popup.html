@@ -5,41 +5,19 @@
   <link rel="stylesheet" type="text/css" href="styles/main.css" />
 </head>
 
-<body style="width: 300px">
-  <p class="title">BRWM-192</p>
+<body style="width: 300px" class="no-data">
+  <p id="title" class="title"></p>
+
   <button class="button button--save" id="clickme">Add to Pill Stack</button>
+
   <p class="title title--tasks">Saved Tasks</p>
 
   <div id="wrap-tasks"></div>
 
-  <div>
+  <div id="empty-tasks">
     <img class="empty-img" alt="Cute empty browser illustration" src="empty.png">
     <p class="empty-title">Nothing!</p>
     <p class="empty-message">There are no saved tasks...</p>
-  </div>
-
-  <div class="task-item">
-    <span class="task-item-label">
-      BRWM-192 Task Name
-    </span>
-    <input class="task-item-time" type="number" placeholder="Hours" />
-    <div class="remove icon"></div>
-  </div>
-
-  <div class="task-item">
-    <span class="task-item-label">
-      BRWM-192 Task Name
-    </span>
-    <input class="task-item-time" type="number" placeholder="Hours" />
-    <div class="remove icon"></div>
-  </div>
-
-  <div class="task-item">
-    <span class="task-item-label">
-      BRWM-192 Task Name
-    </span>
-    <input class="task-item-time" type="number" placeholder="Hours" />
-    <div class="remove icon"></div>
   </div>
 
   <button class="button button--save" id="btn-openair">Fill Open Air!</button>

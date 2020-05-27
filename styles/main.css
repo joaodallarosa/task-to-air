@@ -147,6 +147,14 @@ input {
   transform: rotate(-45deg);
 }
 
+#empty-tasks {
+  display: none;
+}
+
+.no-data #empty-tasks {
+  display: block;
+}
+
 .empty-img {
   width: 100%;
   height: auto;
