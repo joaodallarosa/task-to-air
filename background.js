@@ -11,15 +11,10 @@ chrome.runtime.onInstalled.addListener(function () {
     contexts: ['all'],
   });
 
-
-
   chrome.storage.sync.set({ dataSource: [] }, function () {
-    console.log("Created empty dataSource.");
-
     chrome.storage.onChanged.addListener(function (changes) {
       for (var key in changes) {
         var storageChange = changes[key];
-        console.log(JSON.stringify(storageChange.newValue));
       }
     });
   });
@@ -32,7 +27,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
         relationships: {}
       },
       function () {
-        console.log('Relationship resetted');
+        console.log('Relationship reset');
       }
     );
   }

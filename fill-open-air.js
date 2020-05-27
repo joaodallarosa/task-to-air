@@ -158,10 +158,7 @@ async function setRelationships() {
 
     if (input.value) {
       var inputId = input.id;
-      console.log('input id', inputId);
-
       var inputRow = inputId.split('r')[1][0];
-      console.log(inputRow);
       var taskSelect = document.getElementById('ts_c2_r' + inputRow);
       var projectSelect = document.getElementById('ts_c1_r' + inputRow);
 
@@ -198,7 +195,6 @@ async function addRelationship(projectInfo, taskInfo, taskCode) {
   return new Promise(async (resolve) => {
     var relationships = {};
     chrome.storage.sync.get(['relationships'], function (result) {
-      console.log('got this', result);
       relationships = result.relationships;
       if (!relationships) {
         relationships = {};
@@ -214,7 +210,6 @@ async function addRelationship(projectInfo, taskInfo, taskCode) {
           relationships: relationships
         },
         function () {
-          console.log('Relationship is set');
           resolve();
         }
       );
