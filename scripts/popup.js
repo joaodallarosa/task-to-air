@@ -42,7 +42,7 @@ import storage from './storage.js';
     }, () => {
       chrome.tabs.executeScript(null,
         {
-          file: 'fill-open-air.js'
+          file: 'scripts/fill-open-air.js'
         }, async (data) => {
           const result = data[0];
           if (!result.ok) return;
@@ -128,7 +128,7 @@ import storage from './storage.js';
   function getTaskFromJira() {
     return new Promise(resolve => {
       chrome.tabs.executeScript({
-        file: 'get-jira-task.js'
+        file: 'scripts/get-jira-task.js'
       }, (data) => {
         resolve(data[0]);
       });
