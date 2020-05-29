@@ -1,47 +1,9 @@
-// TO DO
 (function (config) {
   let ok = false;
 
   const { taskToFill } = config;
 
-  testlist = [
-    {
-      "date": "2020-05-26",
-      "duration": 3,
-      "filled": false,
-      "key": "CBMM-21",
-      "value": "Task2Air"
-    },
-    {
-      "date": "2020-05-26",
-      "duration": 4.6,
-      "filled": false,
-      "key": "FCCB-21",
-      "value": "Task2Air"
-    }, {
-      "date": "2020-05-26",
-      "duration": 2,
-      "filled": false,
-      "key": "BRWM-21",
-      "value": "Task2Air"
-    },
-    {
-      "date": "2020-05-26",
-      "duration": 3,
-      "filled": false,
-      "key": "CBMM-21",
-      "value": "Task2Air"
-    }, {
-      "date": "2020-05-26",
-      "duration": 3,
-      "filled": false,
-      "key": "CBMM-21",
-      "value": "Task2Air"
-    },]
-
-
   taskToFill.forEach(task => {
-    // rule to fill ...
     fillAvailableInput(task.duration, `${task.key}:${task.value}`);
     task.filled = true;
   });
@@ -148,7 +110,6 @@ function fillInput(element, hours, description) {
 
 }
 
-
 async function setRelationships() {
   var todayColumns = document.getElementsByClassName('timesheetFixedColumn' + (8 - (new Date().getDay())) + ' timesheetHours');
   for (let i = 0; i < todayColumns.length; i++) {
@@ -189,8 +150,6 @@ async function setRelationships() {
   }
 }
 
-
-// TODO: REMOVE THIS AND USE THE ONE FROM STORAGE JS
 async function addRelationship(projectInfo, taskInfo, taskCode) {
   return new Promise(async (resolve) => {
     var relationships = {};

@@ -1,13 +1,13 @@
 chrome.runtime.onInstalled.addListener(function () {
   chrome.contextMenus.create({
     title: 'Reset Project Associations',
-    id: 'menu-reset-associations', // you'll use this in the handler function to identify this context menu item
+    id: 'menu-reset-associations',
     contexts: ['all'],
   });
 
   chrome.contextMenus.create({
     title: 'Open Timesheet',
-    id: 'openair-link', // you'll use this in the handler function to identify this context menu item
+    id: 'openair-link',
     contexts: ['all'],
   });
 
@@ -21,7 +21,7 @@ chrome.runtime.onInstalled.addListener(function () {
 });
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
-  if (info.menuItemId === "menu-reset-associations") { // here's where you'll need the ID
+  if (info.menuItemId === "menu-reset-associations") {
     chrome.storage.sync.set(
       {
         relationships: {}
@@ -32,7 +32,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     );
   }
 
-  if (info.menuItemId === "openair-link") { // here's where you'll need the ID
+  if (info.menuItemId === "openair-link") {
     window.open('https://valtech.app.openair.com/timesheet.pl', '_blank')
   }
 });

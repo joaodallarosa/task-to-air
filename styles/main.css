@@ -137,7 +137,6 @@ input {
 .remove.icon {
   color: red;
   display: inline-flex;
-  /* margin-left: 8px; */
   padding-top: 14px;
   padding-left: 4px;
   border-radius: 50px;

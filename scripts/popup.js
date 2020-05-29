@@ -1,9 +1,6 @@
 import storage from './storage.js';
 
 (function () {
-
-
-  // Check for Openair to display Filling Button
   chrome.tabs.getSelected(null, function (tab) {
     if (tab.url.includes('valtech.app.openair.com/timesheet.pl')) {
       document.getElementById('btn-openair').style.display = 'block';
