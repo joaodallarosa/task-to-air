@@ -6,21 +6,28 @@ import storage from './storage.js';
       document.getElementById('btn-openair').style.display = 'block';
     }
 
-    if (tab.url.includes('jira')) {
+    if (tab.url.includes('azure') || tab.url.includes('jira')) {
       document.getElementById('btn-add-task').style.display = 'block';
     }
   });
 
   async function onClickToAddTask() {
     var result = await getTaskFromJira();
+    var azureResult = await getTaskFromAzure();
 
-    if (!result.ok) return;
+    if (result && result.ok) {
+      const addedTask = await storage.addTask(result.taskToFill);
+      if (!addedTask) return;
+      putTemplateTask(addedTask);
+    }
 
-    const addedTask = await storage.addTask(result.taskToFill);
+    if (azureResult && azureResult.ok) {
+      const azureAddedTask = await storage.addTask(azureResult.taskToFill);
+      if (!azureAddedTask) return;
+      putTemplateTask(azureAddedTask);
+    }
 
-    if (!addedTask) return;
-
-    putTemplateTask(addedTask);
+    return
   };
 
   async function removeFilledTasks(tasks) {
@@ -132,6 +139,16 @@ import storage from './storage.js';
     });
   }
 
+  function getTaskFromAzure() {
+    return new Promise(resolve => {
+      chrome.tabs.executeScript({
+        file: 'scripts/get-azure-task.js'
+      }, (data) => {
+        resolve(data[0]);
+      });
+    });
+  }
+
   async function onInitializePopup() {
     console.log('DOM fully loaded');
 
@@ -141,9 +158,14 @@ import storage from './storage.js';
     populateTaskList(await storage.getTaskByDate(storage.getDate()));
 
     var task = await getTaskFromJira();
+    var azureTask = await getTaskFromAzure();
 
-    if (task.ok) {
+    if (task && task.ok) {
       document.getElementById('title').innerText = task.taskToFill.key;
+    }
+
+    if (azureTask && azureTask.ok) {
+      document.getElementById('title').innerText = azureTask.taskToFill.key;
     }
 
     actionToAdd.addEventListener('click', onClickToAddTask);
