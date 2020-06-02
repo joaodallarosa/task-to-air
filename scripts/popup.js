@@ -6,11 +6,7 @@ import storage from './storage.js';
       document.getElementById('btn-openair').style.display = 'block';
     }
 
-    if (tab.url.includes('azure')) {
-      document.getElementById('btn-add-task').style.display = 'block';
-    }
-
-    if (tab.url.includes('jira')) {
+    if (tab.url.includes('azure') || tab.url.includes('jira')) {
       document.getElementById('btn-add-task').style.display = 'block';
     }
   });
