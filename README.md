@@ -6,6 +6,9 @@ Task to Air is a Chrome extension that makes filling your Openair Timesheets mor
 - Set the time you've worked on it
 - Fill your Openair Timehseet in **one click**!
 
+### Support
+- JIRA
+- Microsoft Azure
 
 ## Install
 
